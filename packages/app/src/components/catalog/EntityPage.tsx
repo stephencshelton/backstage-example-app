@@ -56,6 +56,17 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 
+// Import security insights content
+import { EntitySecurityInsightsContent } from '@roadiehq/backstage-plugin-security-insights';
+import {
+  EntitySecurityInsightsCard,
+  isSecurityInsightsAvailable
+} from '@roadiehq/backstage-plugin-security-insights';
+
+import { EntityGithubPullRequestsContent } from '@roadiehq/backstage-plugin-github-pull-requests';
+import { EntityGithubPullRequestsOverviewCard } from '@roadiehq/backstage-plugin-github-pull-requests';
+
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -127,6 +138,18 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
+
+    <EntitySwitch>
+      <EntitySwitch.Case if={isSecurityInsightsAvailable}>
+        <Grid item md={6}>
+          <EntitySecurityInsightsCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+
+    <Grid item md={6}>
+      <EntityGithubPullRequestsOverviewCard />
+    </Grid>
   </Grid>
 );
 
@@ -165,6 +188,17 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
+
+    <EntityLayout.Route
+      path="/security-insights"
+      title="Security Insights">
+      <EntitySecurityInsightsContent />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/pull-requests" title="Pull Requests">
+      <EntityGithubPullRequestsContent />
+    </EntityLayout.Route>
+
   </EntityLayout>
 );
 

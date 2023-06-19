@@ -1,1 +1,15 @@
 # Backstage override configuration for your local development environment
+integrations:
+  github:
+    - host: github.com
+      token: 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
+auth:
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: 65e6e353b63fae2dfd6c
+        clientSecret: 6f90acb75fe400f83f991b0321e904e76fb4342d
+      production:
+        clientId: 65e6e353b63fae2dfd6c
+        clientSecret: 6f90acb75fe400f83f991b0321e904e76fb4342d

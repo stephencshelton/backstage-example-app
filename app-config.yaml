@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Backstage Application
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: Amivero, LLC
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -59,13 +59,17 @@ proxy:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'docker' # Alternatives - 'local'
+    runIn: 'local' # Alternatives - 'local'
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 auth:
-  # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
+  environment: production
+  providers:
+    github:
+      production:
+        clientId: ${GITHUB_CLIENT_ID}
+        clientSecret: ${GITHUB_CLIENT_SECRET}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -81,6 +85,10 @@ catalog:
     - type: file
       target: ../../examples/entities.yaml
 
+    # Github source
+    - type: url
+      target: https://github.com/stephencshelton/react-app/blob/main/catalog-info.yaml
+
     # Local example template
     - type: file
       target: ../../examples/template/template.yaml
@@ -93,12 +101,15 @@ catalog:
       rules:
         - allow: [User, Group]
 
-    ## Uncomment these lines to add more example data
-    # - type: url
-    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+    # Uncomment these lines to add more example data
+    #  - type: url
+    #    target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
 
     ## Uncomment these lines to add an example org
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]
+
+github:
+  orgUrl: https://github.com/k3cluster
